@@ -1,3 +1,8 @@
+/*
+TODO for the future:
+- transforming the description to markdown (they don't seem to be used much)
+*/
+
 const kuksa = require('../kuksa-event-scraper');
 const contentful = require('contentful-management');
 const slugify = require('slugify');
