@@ -37,6 +37,9 @@ const contentfulClient = contentful.createClient({
 })();
 
 async function getEventIdsFromKuksa() {
+  if (!TROOP_ID) {
+    throw Error('Troop ID not set');
+  }
 	return await kuksa.getEvents({
     organizer: TROOP_ID,
     dateStart: new Date('2019-06-01'),
