@@ -1,6 +1,11 @@
 const kuksa = require('../kuksa-event-scraper');
+const contentful = require('contentful-management');
 
 const TROOP_ID = 9999426;
+const SPACE_ID = process.env.SPACE_ID;
+const contentfulClient = contentful.createClient({
+  accessToken: process.env.CONTENTFUL_TOKEN,
+});
 
 (async () => {
   try {
@@ -29,9 +34,20 @@ async function getEventFromKuksa(eventId) {
 }
 
 async function eventExistsInContentful(eventId) {
-  return false;
+  const env = await getContentfulEnv();
+  const entries = await env.getEntries({
+    'content_type': 'event',
+    'fields.kuksaId': eventId,
+  });
+  return entries.total > 0;
 }
 
 async function createEventInContentful(eventInfo) {
   console.log('CREATE EVENT:', eventInfo);
+}
+
+async function getContentfulEnv() {
+  const space = await contentfulClient.getSpace(SPACE_ID);
+  const env = await space.getEnvironment('master');
+  return env;
 }
