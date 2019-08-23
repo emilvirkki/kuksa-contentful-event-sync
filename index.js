@@ -3,11 +3,13 @@ TODO for the future:
 - transforming the description to markdown (they don't seem to be used much)
 */
 
+require('dotenv').config();
+
 const kuksa = require('kuksa-event-scraper');
 const contentful = require('contentful-management');
 const slugify = require('slugify');
 
-const TROOP_ID = 9999426;
+const TROOP_ID = process.env.TROOP_ID;
 const SPACE_ID = process.env.SPACE_ID;
 const contentfulClient = contentful.createClient({
   accessToken: process.env.CONTENTFUL_TOKEN,
