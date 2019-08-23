@@ -10,13 +10,19 @@ const contentfulClient = contentful.createClient({
 
 (async () => {
   try {
+    console.log('Syncing events from Kuksa...');
     const eventIds = await getEventIdsFromKuksa();
     for (eventId of eventIds) {
-      if (!await eventExistsInContentful(eventId)) {
+      if (await eventExistsInContentful(eventId)) {
+        console.log(`- Event #${eventId} already exists`);
+      } else {
+        console.log(`- Event #${eventId} is a NEW EVENT, creating...`);
         const event = await getEventFromKuksa(eventId);
         await createEventInContentful(event);
+        console.log(`--> Event "${event.name}" created!`);
       }
     }
+    console.log('Event sync COMPLETE')
   } catch(e) {
     console.error(e);
     process.exit(1);
