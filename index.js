@@ -1,5 +1,6 @@
 const kuksa = require('../kuksa-event-scraper');
 const contentful = require('contentful-management');
+const slugify = require('slugify');
 
 const TROOP_ID = 9999426;
 const SPACE_ID = process.env.SPACE_ID;
@@ -43,7 +44,35 @@ async function eventExistsInContentful(eventId) {
 }
 
 async function createEventInContentful(eventInfo) {
-  console.log('CREATE EVENT:', eventInfo);
+  // Wraps the value in a localisation object required by Contentful
+  function val(content) {
+    return {
+      'fi-FI': content,
+    }
+  }
+
+  const env = await getContentfulEnv();
+  const entry = await env.createEntry('event', {
+    fields: {
+      title: val(eventInfo.name),
+      // add id to avoid duplicates
+      slug: val(`${eventInfo.id}-${slugify(eventInfo.name)}`),
+      datetimeStart: val(eventInfo.dateTimeStarts),
+      datetimeEnd: val(eventInfo.dateTimeEnds),
+      content: val(eventInfo.descriptionText),
+      registrationLink: val(getRegistrationLink(eventInfo)),
+      kuksaId: val(eventInfo.id),
+    }
+  });
+  await entry.publish();
+}
+
+function getRegistrationLink(eventInfo) {
+  // Heuristic: if there's and ending time for the registration, there's a registration
+  if(eventInfo.registrationEnds) {
+    return `https://kuksa.partio.fi/Kotisivut/tilaisuus_tiedot.aspx?TIAId=${eventInfo.id}`;
+  }
+  return null;
 }
 
 async function getContentfulEnv() {
