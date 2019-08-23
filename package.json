@@ -9,6 +9,7 @@
   "author": "Emil Virkki",
   "license": "MIT",
   "dependencies": {
+    "contentful-management": "^5.10.0",
     "kuksa-event-scraper": "^1.0.0"
   }
 }
