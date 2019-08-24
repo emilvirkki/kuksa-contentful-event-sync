@@ -17,6 +17,9 @@ const contentfulClient = contentful.createClient({
 
 (async () => {
   try {
+    // setting this allows running this on e.g. Heroku
+    kuksa.setPuppeteerOptions({ args: ['--no-sandbox'] });
+    
     console.log('Syncing events from Kuksa...');
     const eventIds = await getEventIdsFromKuksa();
     for (eventId of eventIds) {
