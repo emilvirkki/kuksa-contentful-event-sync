@@ -1,5 +1,6 @@
 /*
 TODO for the future:
+- updating existing events: naive version i.e. just updating all events we get from Kuksa
 - transforming the description to markdown (they don't seem to be used much)
 */
 
