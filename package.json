@@ -11,7 +11,7 @@
   "dependencies": {
     "contentful-management": "^7.17.6",
     "dotenv": "^8.2.0",
-    "kuksa-event-scraper": "^1.1.2",
+    "kuksa-event-scraper": "^1.1.3",
     "slugify": "^1.5.1"
   }
 }
