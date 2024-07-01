@@ -46,7 +46,7 @@ async function getEventIdsFromKuksa() {
   }
 	return await kuksa.getEvents({
     organizer: TROOP_ID,
-    dateStart: new Date('2021-11-01'),
+    dateStart: new Date(),
   });
 }
 
