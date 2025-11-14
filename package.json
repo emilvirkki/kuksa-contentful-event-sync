@@ -9,9 +9,9 @@
   "author": "Emil Virkki",
   "license": "MIT",
   "dependencies": {
-    "contentful-management": "^7.17.6",
-    "dotenv": "^8.2.0",
+    "contentful-management": "^11.8.13",
+    "dotenv": "^17.2.3",
     "kuksa-event-scraper": "^1.1.3",
-    "slugify": "^1.5.1"
+    "slugify": "^1.6.6"
   }
 }
